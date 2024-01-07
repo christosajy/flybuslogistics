@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+{% extends 'backindex.html' %}
+{% block content %}
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+
+<body>
+
+    <div class="card rounded-0 border-0">
+        <div class="card-body">
+            <h4 class="card-title">ADD TEAM MEMBERS</h4>
+
+            <form class="forms-sample" action="{% url 'saveteam' %}" method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+
+                <div class="form-group">
+                    <label>Name</label>
+                    <input type="text" class="form-control" placeholder="Name" name="tname" required>
+                </div>
+
+                <div class="form-group">
+                    <label>Designation</label>
+                    <input type="text" class="form-control" placeholder="Designation" name="dtion">
+                </div>
+
+                <div class="form-group">
+                    <label>Image</label>
+                    <input type="file" class="form-control" name="timg" required>
+                </div>
+
+                <p class="pt-3">SOCIAL MEDIA LINKS [Upto 4 links, atleast 1 required]</p>
+
+                <div class="form-group">
+                    <label>Link 1</label>
+                    <input type="text" class="form-control text-lowercase" placeholder="Link 1" name="link1">
+                </div>
+
+                <div class="form-group">
+                    <label>Link 2</label>
+                    <input type="text" class="form-control text-lowercase" placeholder="Link 2" name="link2">
+                </div>
+
+                <div class="form-group">
+                    <label>Link 3</label>
+                    <input type="text" class="form-control text-lowercase" placeholder="Link 3" name="link3">
+                </div>
+
+                <div class="form-group">
+                    <label>Link 4</label>
+                    <input type="text" class="form-control text-lowercase" placeholder="Link 4" name="link4">
+                </div>
+
+                <button type="submit" class="btn btn-primary btn-icon-text me-2">
+                    <i class="ti-file btn-icon-prepend"></i> <span>Submit</span>
+                </button>
+
+                <button type="reset" class="btn btn-warning btn-icon-text">
+                    <i class="ti-reload btn-icon-prepend"></i> <span>Reset</span>
+                </button>
+
+            </form>
+        </div>
+    </div>
+
+    <!-- Alert Javascript -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
+    {% if messages %}
+    {% for i in messages %}
+    {% if i.tags == 'success' %}
+    <script>
+        swal('{{i}}', '', 'success')
+    </script>
+    {% elif i.tags == 'error' %}
+    <script>
+        swal('{{i}}', '', 'error')
+    </script>
+    {% elif i.tags == 'warning' %}
+    <script>
+        swal('{{i}}', '', 'warning')
+    </script>
+    {% else %}
+    <script>
+        swal('{{i}}', '', 'info')
+    </script>
+    {% endif %}
+    {% endfor %}
+    {% endif %}
+
+
+</body>
+
+</html>
+{% endblock %}

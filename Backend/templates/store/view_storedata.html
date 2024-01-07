@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+
+{% extends 'backindex.html' %}
+{% block content %}
+
+
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+
+    <div class="rounded-0 border-0">
+        <div class="mb-2 ml-1">
+            <div class="form-checkbox">
+                <label for="status_btn">
+                    <input type="radio" id="status_btn" name="radio" checked>
+                    <span class="text-uppercase h6 fw-bold">Display Status</span>
+                </label>
+                <label for="weight_btn">
+                    <input type="radio" id="weight_btn" name="radio" class="ml-3">
+                    <span class="text-uppercase fw-bold h6">Display Weight</span>
+                </label>
+                <label for="class_btn">
+                    <input type="radio" id="class_btn" name="radio" class="ml-3">
+                    <span class="text-uppercase fw-bold h6">Display Class</span>
+                </label>
+            </div>
+        </div>
+    </div>
+
+    <div class="w-100">
+        <div class="card rounded-0 border-0" id="status">
+            <div class="card-body text-uppercase">
+                <h4 class="card-title text-uppercase">Display Status</h4>
+                <div class="table-responsive">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for i in data %}
+                            <tr>
+                                <td>{{i.Order_Status}}</td>
+                                <td>
+                                    <form action="{% url 'delete_datastore' dataid=i.id %}">
+                                        <button class="btn btn-danger">
+                                            <span>Delete</span>
+                                        </button>
+                                    </form>
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <div class="card rounded-0 border-0 mt-3" id="weight">
+            <div class="card-body text-uppercase">
+                <h4 class="card-title text-uppercase">Display Status</h4>
+                <div class="table-responsive">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Weight</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for j in weight %}
+                            <tr>
+                                <td>{{j.Weightage}}</td>
+                                <td>
+                                    <form action="{% url 'delete_weight' weightid=j.id %}">
+                                        <button class="btn btn-danger">
+                                            <span>Delete</span>
+                                        </button>
+                                    </form>
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <div class="card rounded-0 border-0 mt-3" id="class">
+            <div class="card-body text-uppercase">
+                <h4 class="card-title text-uppercase">Display Status</h4>
+                <p class="text-black fw-bold">Container Load</p>
+                <div class="table-responsive">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Class</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for k in cls %}
+                            <tr>
+                                <td>{{k.Class}}</td>
+                                <td>
+                                    <form action="{% url 'delete_cls' clsid=k.id %}">
+                                        <button class="btn btn-danger">
+                                            <span>Delete</span>
+                                        </button>
+                                    </form>
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Alert JavaScripts -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
+    {% if messages %}
+    {% for i in messages %}
+    {% if i.tags == 'success' %}
+    <script>
+        swal('{{i}}', '', 'success')
+    </script>
+    {% elif i.tags == 'error' %}
+    <script>
+        swal('{{i}}', '', 'error')
+    </script>
+    {% elif i.tags == 'warning' %}
+    <script>
+        swal('{{i}}', '', 'warning')
+    </script>
+    {% else %}
+    <script>
+        swal('{{i}}', '', 'info')
+    </script>
+    {% endif %}
+    {% endfor %}
+    {% endif %}
+
+    <script>
+        $(document).ready(function () {
+
+            $("#status").show()
+            $("#weight").hide()
+            $("#class").hide()
+
+            $("#status_btn").click(function () {
+                $("#status").show()
+                $("#weight").hide()
+                $("#class").hide()
+            })
+
+            $("#weight_btn").click(function () {
+                $("#status").hide()
+                $("#weight").show()
+                $("#class").hide()
+            })
+
+            $("#class_btn").click(function () {
+                $("#status").hide()
+                $("#weight").hide()
+                $("#class").show()
+            })
+
+
+        })
+    </script>
+
+</body>
+
+</html>
+
+{% endblock %}

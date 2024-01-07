@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+
+{% extends 'backindex.html' %}
+{% block content %}
+
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+
+    <div class="card rounded-0 border-0 ">
+        <div class="card-body">
+            <h4 class="card-title">EDIT ADDRESS</h4>
+            <form class="forms-sample" action="{% url 'updateaddress' addressId=address.id %}" method="post">
+                {% csrf_token %}
+
+                <div class="form-group">
+                    <label>Edit Email</label>
+                    <input type="email" class="form-control text-lowercase" placeholder="Email" name="email"
+                        value="{{address.Email}}" required>
+                </div>
+
+                <div class="form-group">
+                    <label>Edit Website</label>
+                    <input type="text" class="form-control text-lowercase" placeholder="URL" name="eweb"
+                        value="{{address.Website}}">
+                </div>
+
+                <div class="form-group">
+                    <label>Edit Copyright Address</label>
+                    <input type="text" class="form-control text-capitalize" name="acopy" value="{{address.Copy_right}}"
+                        placeholder="Copyright © year. All rights reserved.">
+                </div>
+
+                <div class="form-group">
+                    <label>Edit Contact Number</label>
+                    <input type="text" class="form-control  text-lowercase" placeholder="Phone" name="efone"
+                        value="{{address.ContactNum}}">
+                </div>
+
+                <div class="form-group">
+                    <label>Edit Address</label>
+                    <textarea name="edesc" class="form-control" rows="4">{{address.Address}}</textarea>
+                </div>
+
+                <button type="submit" class="btn btn-primary btn-icon-text me-2">
+                    <i class="ti-file btn-icon-prepend"></i>
+                    <span>Submit</span>
+                </button>
+
+                <button type="reset" class="btn btn-warning btn-icon-text">
+                    <i class="ti-reload btn-icon-prepend"></i>
+                    <span>Reset</span>
+                </button>
+                
+            </form>
+        </div>
+    </div>
+
+    <div class="card rounded-0 border-0 mt-3">
+        <div class="card-body">
+            <ul class="nav justify-content-center">
+                <li class="nav-item mr-3">
+                    <a class="nav-link btn btn-light btn-icon-text" href="{% url 'displayaddress' %}">
+                        <i class="fa-solid fa-left-long text-primary"></i>
+                        <span></span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link btn btn-light btn-icon-text" href="{% url 'backindex' %}">
+                        <i class="fa-solid fa-house text-primary"></i>
+                        <span></span>
+                    </a>
+                </li>
+                <li class="nav-item ml-3 hidden">
+                    <a class="nav-link btn btn-light btn-icon-text" href="#">
+                        <i class="fa-solid fa-right-long text-primary"></i>
+                        <span></span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- Alert JavaScripts -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
+    {% if messages %}
+    {% for i in messages %}
+    {% if i.tags == 'success' %}
+    <script>
+        swal('{{i}}', '', 'success')
+    </script>
+    {% elif i.tags == 'error' %}
+    <script>
+        swal('{{i}}', '', 'error')
+    </script>
+    {% elif i.tags == 'warning' %}
+    <script>
+        swal('{{i}}', '', 'warning')
+    </script>
+    {% else %}
+    <script>
+        swal('{{i}}', '', 'info')
+    </script>
+    {% endif %}
+    {% endfor %}
+    {% endif %}
+
+
+
+</body>
+
+</html>
+
+{% endblock %}

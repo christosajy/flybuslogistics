@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title> [Frontend] - FLY!BUS </title>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <meta content="Free HTML Templates" name="keywords">
+    <meta content="Free HTML Templates" name="description">
+
+    <!-- Favicon -->
+    <link href="{% static 'img/favicon.ico' %}" rel="icon">
+
+    <!-- Google Web Fonts -->
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap"
+        rel="stylesheet">
+
+    <!-- Font Awesome -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
+
+    <!-- Libraries Stylesheet -->
+    <link href="{% static 'lib/owlcarousel/assets/owl.carousel.min.css' %}" rel="stylesheet">
+
+    <!-- Customized Bootstrap Stylesheet -->
+    <link href="{% static 'css/style.css' %}" rel="stylesheet">
+</head>
+
+<body>
+
+    <!-- Topbar Start -->
+    <div class="container-fluid bg-dark">
+        <div class="row py-2 px-lg-5">
+            <div class="col-lg-6 text-center text-lg-left mb-2 mb-lg-0">
+
+                <div class="d-inline-flex align-items-center text-white">
+
+                    {% for i in address %}
+                    <small><i class="fab fa-whatsapp mr-1"></i>
+                        <a href="https://wa.me/{{i.ContactNum}}" class="text-white text-decoration-none">
+                            <span>Whatsapp Us</span>
+                        </a>
+                    </small>
+                    <small class="px-3">|</small>
+                    <small><i class="fa fa-envelope mr-1"></i>
+                        <a href="mailto:{{i.Email}}" class="text-white text-decoration-none">
+                            <span>Mail Us</span>
+                        </a>
+                    </small>
+                    <small class="px-3">|</small>
+                    {% endfor %}
+                    <small><i class="fas fa-map-marker-alt mr-1"></i>
+                        <a href="{% url 'location' %}" class="text-white text-decoration-none">
+                            <span>Our Locations</span>
+                        </a>
+                    </small>
+                </div>
+
+            </div>
+            <div class="col-lg-6 text-center text-lg-right">
+
+                <div class="d-inline-flex align-items-center">
+                    <!-- TWITTER [X] ADDRESS -->
+                    <a class="text-white px-2" href="https://twitter.com">
+                        <i class="fab fa-twitter"></i>
+                    </a>
+                    <!-- LINKEDIN ADDRESS -->
+                    <a class="text-white px-2" href="https://www.linkedin.com">
+                        <i class="fab fa-linkedin-in"></i>
+                    </a>
+                    <!-- INSTAGRAM ADDRESS -->
+                    <a class="text-white px-2" href="https://www.instagram.com">
+                        <i class="fab fa-instagram"></i>
+                    </a>
+                    <!-- FACEBOOK [META] ADDRESS -->
+                    <a class="text-white px-2" href="https://www.facebook.com">
+                        <i class="fab fa-facebook-f"></i>
+                    </a>
+                    <!-- YOUTUBE ADDRESS -->
+                    <a class="text-white px-2" href="https://www.youtube.com">
+                        <i class="fab fa-youtube"></i>
+                    </a>
+                    {% if request.session.Email %}
+                    <a class="text-white pl-2 text-decoration-none"
+                        href="{% url 'profile' user_mail=request.session.Email %}">
+                        <i class="fas fa-user mr-2"></i> <span> {{request.session.Email}} </span>
+                    </a>
+                    {% endif %}
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <!-- Topbar End -->
+
+
+    <!-- Navbar Start -->
+    <div class="container-fluid p-0">
+        <nav class="navbar navbar-expand-lg bg-light navbar-light py-3 py-lg-0 px-lg-5">
+            <a href="#" class="navbar-brand ml-lg-3">
+                <h1 class="m-0 display-5 text-primary">
+                    <!-- <i class="fa-solid fa-bus"></i> --> <!-- font-awesome v6.4.2 -->
+                    <i class="fas fa-bus-alt text-danger"></i> fly<span class="text-danger">!</span>bus
+                </h1>
+            </a>
+            <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse justify-content-between px-lg-3" id="navbarCollapse">
+                <div class="navbar-nav m-auto py-0">
+                    <a href="{% url 'frontindex' %}" class="nav-item nav-link">Home</a>
+                    <a href="{% url 'aboutPage' %}" class="nav-item nav-link">About</a>
+                    <a href="{% url 'servPage' %}" class="nav-item nav-link">Services</a>
+                    <a href="{% url 'schedulepage' %}" class="nav-item nav-link">Schedules</a>
+
+                    <div class="nav-item dropdown">
+                        <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Logistics</a>
+                        <div class="dropdown-menu rounded-0 m-0">
+                            {% for i in type %}
+                            <a href="{% url 'logistics' valueId=i.id %}" class="dropdown-item">{{i.TypeName}}</a>
+                            {% endfor %}
+                        </div>
+                    </div>
+
+                    <a href="{% url 'contactpage' %}" class="nav-item nav-link">Contact</a>
+                </div>
+                <a href="{% url 'requestquote' %}" class="btn btn-primary py-2 px-4 d-none d-lg-block active">Get A
+                    Quote</a>
+            </div>
+        </nav>
+    </div>
+    <!-- Navbar End -->
+
+    <!-- Header Start -->
+    <div class="jumbotron jumbotron-fluid mb-5">
+        <div class="container text-center py-5">
+            <h1 class="text-white display-3">Get a Quote</h1>
+            <div class="d-inline-flex align-items-center text-white">
+                <p class="m-0"><a class="text-white" href="{% url 'frontindex' %}">Home</a></p>
+                <i class="fa fa-circle px-3"></i>
+                <p class="m-0">Get a Quote</p>
+            </div>
+        </div>
+    </div>
+    <!-- Header End -->
+
+
+    <!--  Quote Request Start -->
+    {% if request.session.Email %}
+    <div class="container-fluid bg-secondary my-5" hei>
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-lg-7 py-5 py-lg-0">
+                    <h6 class="text-primary text-uppercase font-weight-bold">Get A Quote</h6>
+                    <h1 class="mb-4">Request A Free Quote</h1>
+                    <p class="mb-4 text-justify">
+                        <span>Welcome to fly!bus Logistics - Your Global Logistics Partner!</span>
+                        <span>Request a free quote from us for your conveinience from us.</span>
+                        <span>Contact us today to explore how we can elevate your</span>
+                        <span>logistics experience and propel your business to new heights.</span>
+                        <span>Remember we are always at your service.</span>
+                    </p>
+                    <p class="mb-4 text-justify"></p>
+                    <div class="row">
+                        <div class="col-sm-4">
+                            <h1 class="text-primary mb-2" data-toggle="counter-up">225</h1>
+                            <h6 class="font-weight-bold mb-4">SKilled Experts</h6>
+                        </div>
+                        <div class="col-sm-4">
+                            <h1 class="text-primary mb-2" data-toggle="counter-up">1050</h1>
+                            <h6 class="font-weight-bold mb-4">Happy Clients</h6>
+                        </div>
+                        <div class="col-sm-4">
+                            <h1 class="text-primary mb-2" data-toggle="counter-up">2500</h1>
+                            <h6 class="font-weight-bold mb-4">Complete Projects</h6>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-5">
+
+                    <div class="bg-primary py-5 px-4 px-sm-5">
+                        <form class="py-5" action="{% url 'quotesave' %}" method="post">
+                            {% csrf_token %}
+
+                            <div class="form-group">
+                                <input type="text" name="qname" class="form-control border-0 p-4"
+                                    placeholder="Your Name" required="required" />
+                            </div>
+
+                            <div class="form-group">
+                                <input type="email" name="qmail" class="form-control border-0 p-4 text-lowercase"
+                                    placeholder="Your Email" required="required" />
+                            </div>
+
+                            <div>
+                                <button class="btn btn-dark btn-block border-0 py-3" type="submit">Get A Quote</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endif %}
+    <!-- Quote Request Ends -->
+
+
+    <!-- Footer Start -->
+    <div class="container-fluid bg-dark text-white mt-5 py-5 px-sm-3 px-md-5">
+        <div class="row pt-5">
+            <div class="col-lg-7 col-md-6">
+                <div class="row">
+
+                    <div class="col-md-6 mb-5">
+
+                        {% for i in address %}
+                        <h3 class="text-primary mb-4">Get In Touch</h3>
+                        <p><i class="fa fa-map-marker-alt mr-2"></i>
+                            <a href="https://maps.app.goo.gl/4d2n4QxfSasVx5fx8" class="text-decoration-none">
+                                <span class="text-white">{{i.Address}}</span>
+                            </a>
+                        </p>
+                        <p><i class="fa fa-phone-alt mr-2"></i>
+                            <a href="tel:{{i.ContactNum}}" class="text-decoration-none">
+                                <span class="text-white">+{{i.ContactNum}}</span>
+                            </a>
+                        </p>
+                        <p><i class="fa fa-envelope mr-2"></i>
+                            <a href="mailto:{{i.Email}}" class="text-decoration-none">
+                                <span class="text-white">{{i.Email}}</span>
+                            </a>
+                        </p>
+                        {% endfor %}
+
+                        <div class="d-flex justify-content-start mt-4">
+                            <a class="btn btn-outline-light btn-social mr-2" href="https://twitter.com">
+                                <i class="fab fa-twitter"></i>
+                            </a>
+                            <a class="btn btn-outline-light btn-social mr-2" href="https://www.facebook.com">
+                                <i class="fab fa-facebook-f"></i>
+                            </a>
+                            <a class="btn btn-outline-light btn-social mr-2" href="https://www.linkedin.com">
+                                <i class="fab fa-linkedin-in"></i>
+                            </a>
+                            <a class="btn btn-outline-light btn-social mr-2" href="https://www.instagram.com">
+                                <i class="fab fa-instagram"></i>
+                            </a>
+                            <a class="btn btn-outline-light btn-social" href="https://www.youtube.com">
+                                <i class="fab fa-youtube"></i>
+                            </a>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6 mb-5">
+                        <h3 class="text-primary mb-4">Quick Links</h3>
+                        <div class="d-flex flex-column justify-content-start">
+                            <a class="text-white mb-2" href="{% url 'frontindex' %}">
+                                <i class="fa fa-angle-right mr-2"></i><span>Home</span>
+                            </a>
+                            <a class="text-white mb-2" href="{% url 'aboutPage' %}">
+                                <i class="fa fa-angle-right mr-2"></i><span>About Us</span>
+                            </a>
+                            <a class="text-white mb-2" href="{% url 'servPage' %}">
+                                <i class="fa fa-angle-right mr-2"></i><span>Services</span>
+                            </a>
+                            <a class="text-white mb-2" href="{% url 'schedulepage' %}">
+                                <i class="fa fa-angle-right mr-2"></i><span>Schedules</span>
+                            </a>
+                            <a class="text-white" href="{% url 'contactpage' %}">
+                                <i class="fa fa-angle-right mr-2"></i><span>Contact Us</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-5 col-md-6 mb-5">
+                {% for i in slider %}
+                <div class="py-2 mb-3">
+                    <h3 class="text-primary mb-4"> Newsletter </h3>
+                    <p class="text-justify"> {{i.Content_P5}} </p>
+                </div>
+                {% endfor %}
+                <div class="w-100">
+                    <form action="#" method="post">
+                        <div class="input-group">
+                            {% if request.session.Email %}
+                            <input type="text" class="form-control border-light text-lowercase"
+                                placeholder="Your Email Address" value="{{request.session.Email}}" required>
+                            <div class="input-group-append">
+                                <button class="btn btn-primary px-4">Sign Up</button>
+                            </div>
+                            {% else %}
+                            <input type="text" class="form-control border-light text-lowercase"
+                                placeholder="Your Email Address" required>
+                            <div class="input-group-append">
+                                <button class="btn btn-primary px-4">Sign Up</button>
+                            </div>
+                            {% endif %}
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <div class="container-fluid bg-dark text-white border-top py-4 px-sm-3 px-md-5"
+        style="border-color: #3E3E4E !important;">
+        <div class="row">
+            {% for i in address %}
+            <div class="col-lg-6 text-center text-md-left mb-3 mb-md-0">
+                <p class="m-0">
+                    <a href="#" class="text-white"> {{i.Copy_right}} </a> <a href="https://htmlcodex.com"></a>
+                </p>
+            </div>
+            {% endfor %}
+            <div class="col-lg-6 text-center text-md-right">
+                <ul class="nav d-inline-flex">
+                    <li class="nav-item">
+                        <a class="nav-link text-white py-0" href="#">Privacy</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-white py-0" href="#">Terms</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-white py-0" href="#">FAQs</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-white py-0" href="#">Help</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <!-- Footer End -->
+
+
+    <!-- Back to Top -->
+    <a href="{% url 'requestquote' %}" class="btn btn-lg btn-primary back-to-top">
+        <i class="fa fa-angle-double-up"></i>
+    </a>
+
+
+    <!-- Online JavaScript Libraries -->
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script>
+
+    <!-- JavaScript Libraries -->
+    <script src="{% static 'lib/easing/easing.min.js' %}"></script>
+    <script src="{% static 'lib/waypoints/waypoints.min.js' %}"></script>
+    <script src="{% static 'lib/counterup/counterup.min.js' %}"></script>
+    <script src="{% static 'lib/owlcarousel/owl.carousel.min.js' %}"></script>
+
+    <!-- Contact Javascript File -->
+    <script src="{% static 'mail/jqBootstrapValidation.min.js' %}"></script>
+    <script src="{% static 'mail/contact.js' %}"></script>
+
+    <!-- Template Javascript -->
+    <script src="{% static 'js/main.js' %}"></script>
+
+    <!-- Alert JavaScripts -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
+    {% if messages %}
+    {% for i in messages %}
+    {% if i.tags == 'success' %}
+    <script>
+        swal('{{i}}', '', 'success')
+    </script>
+    {% elif i.tags == 'error' %}
+    <script>
+        swal('{{i}}', '', 'error')
+    </script>
+    {% elif i.tags == 'warning' %}
+    <script>
+        swal('{{i}}', '', 'warning')
+    </script>
+    {% else %}
+    <script>
+        swal('{{i}}', '', 'info')
+    </script>
+    {% endif %}
+    {% endfor %}
+    {% endif %}
+
+
+</body>
+
+</html>

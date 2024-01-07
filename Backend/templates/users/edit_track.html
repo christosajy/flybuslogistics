@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+
+{% extends 'backindex.html' %}
+{% block content %}
+
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+
+    <div class="card mt-3 rounded-0 border-0" id="shipping_section">
+        <div class="card-body">
+            <h4 class="card-title">PENDING SHIPPING REQUESTS </h4>
+
+            <form class="forms-sample" action="{% url 'update_pending_tracking' shipId=ship.id %}" method="post">
+                {% csrf_token %}
+
+                <div class="form-group">
+                    <label>User Mail</label>
+                    <input type="email" class="form-control text-lowercase" name="email" value="{{ship.Email}}"
+                        readonly>
+                </div>
+
+                <div class="form-group">
+                    <label>Shipping ID</label>
+                    <p> Example: 88DD44CC33BB22AA [8-16 Alphanumeric Characters in 88-Series ( NB: Full Uppercase)]</p>
+                    <input type="text" name="genid" class="form-control text-uppercase" value="{{ship.Shipping_ID}}"
+                        required>
+                </div>
+
+                <div class="form-group">
+                    <label>Shipping From</label>
+                    <textarea name="from" class="form-control" required>{{ship.From_Address}}</textarea>
+                </div>
+
+                <div class="form-group">
+                    <label>Shipping To</label>
+                    <textarea name="to" class="form-control" required>{{ship.To_Address}}</textarea>
+                </div>
+
+                <div class="form-group">
+                    <label>Departure Date</label>
+                    <input type="text" class="form-control" value="{{ship.Dep_Date}}" name="depar" id="depardate"
+                        onfocus="(this.type='date')" onblur="(this.type='text')" placeholder="Date" required>
+                </div>
+
+                <div class="form-group">
+                    <label>Estimated Delivery Date</label>
+                    <input type="text" class="form-control" value="{{ship.Est_Del_Date}}" name="estdel" id="deldate"
+                        onfocus="(this.type='date')" onblur="(this.type='text')" placeholder="Date" required>
+                </div>
+
+                <div class="form-group">
+                    <label>Class</label>
+                    <select name="class" class="form-control" required>
+                        <option>{{ship.Class}}</option>
+                        <option>Select</option>
+                        {% for i in cls %}
+                        <option>{{i.Class}}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label>Volume</label>
+                    <select name="vol" class="form-control" required>
+                        <option>{{ship.Volume}}</option>
+                        <option>Select</option>
+                        {% for i in weight %}
+                        <option>{{i.Weightage}}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label>Type</label>
+                    <select name="type" class="form-control" required>
+                        <option>{{ship.Type}}</option>
+                        <option>Select</option>
+                        {% for i in type %}
+                        <option>{{i.TypeName}}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label>Order Status</label>
+                    <select name="status" class="form-control" required>
+                        <option>{{ship.Order_Status}}</option>
+                        <option>Select</option>
+                        {% for i in data %}
+                        <option>{{i.Order_Status}}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+
+                <button type="submit" class="btn btn-primary btn-icon-text me-2">
+                    <i class="ti-file btn-icon-prepend"></i>
+                    <span> Submit </span>
+                </button>
+
+                <button type="reset" class="btn btn-warning btn-icon-text">
+                    <i class="ti-reload btn-icon-prepend"></i>
+                    <span> Reset </span>
+                </button>
+
+            </form>
+        </div>
+    </div>
+
+    <!-- Hidden Bottom Next Bar -->
+    <div class="card rounded-0 border-0 mt-3 hidden">
+        <div class="card-body">
+            <ul class="nav justify-content-center">
+                <li class="nav-item mr-3">
+                    <a class="nav-link btn btn-primary btn-icon-text" href="#">
+                        <i class="fa-solid fa-left-long"></i>
+                        <span>Left</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link btn btn-primary btn-icon-text" href="#">
+                        <span>Home</span>
+                    </a>
+                </li>
+                <li class="nav-item ml-3">
+                    <a class="nav-link btn btn-primary btn-icon-text" href="#">
+                        <i class="fa-solid fa-right-long"></i>
+                        <span>Right</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- Alert Javascript -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
+    <script>
+        var date = new Date();
+        var tdate = date.getDate();
+        if (tdate < 10) {
+            tdate = "0" + tdate;
+        }
+        var month = date.getMonth() + 1;
+        if (month < 10) {
+            month = "0" + month;
+        }
+        var year = date.getUTCFullYear();
+        var minDate = year + "-" + month + "-" + tdate;
+        document.getElementById("depardate").setAttribute("min", minDate);
+        document.getElementById("deldate").setAttribute("min", minDate);
+        console.log(date)
+    </script>
+
+    {% if messages %}
+    {% for i in messages %}
+    {% if i.tags == 'success' %}
+    <script>
+        swal('{{i}}', '', 'success')
+    </script>
+    {% elif i.tags == 'error' %}
+    <script>
+        swal('{{i}}', '', 'error')
+    </script>
+    {% elif i.tags == 'warning' %}
+    <script>
+        swal('{{i}}', '', 'warning')
+    </script>
+    {% else %}
+    <script>
+        swal('{{i}}', '', 'info')
+    </script>
+    {% endif %}
+    {% endfor %}
+    {% endif %}
+
+</body>
+
+</html>
+
+{% endblock %}

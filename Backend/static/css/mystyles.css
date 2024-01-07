@@ -1,0 +1,12 @@
+.body-section{
+    background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url(../images/background/tr2.jpg);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+    /* background: url(../images/background/tr1.jpg); */
+}
+
+.left-bar{
+    padding-top: 20px;
+    margin-left: -20px;
+}

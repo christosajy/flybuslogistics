@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+
+{% extends 'backindex.html' %}
+{% block content %}
+
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+
+  <div class="rounded-0 border-0">
+    <div class="mb-2 ml-1">
+      <div class="form-checkbox">
+        <label for="status_btn">
+          <input type="radio" id="status_btn" name="radio" checked>
+          <span class="text-uppercase h6 fw-bold">Add Status</span>
+        </label>
+        <label for="weight_btn">
+          <input type="radio" id="weight_btn" name="radio" class="ml-3">
+          <span class="text-uppercase fw-bold h6">Add Weight</span>
+        </label>
+        <label for="class_btn">
+          <input type="radio" id="class_btn" name="radio" class="ml-3">
+          <span class="text-uppercase fw-bold h6">Add Class</span>
+        </label>
+      </div>
+    </div>
+  </div>
+
+  <div class="card rounded-0 border-0 mt-3" id="status">
+    <div class="card-body">
+      <h4 class="card-title">ADD ORDER STATUS</h4>
+
+      <form class="forms-sample" action="{% url 'datastore_save' %}" method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+
+        <div class="form-group">
+          <label>Status of Order</label>
+          <input type="text" class="form-control" placeholder="Status" name="status">
+        </div>
+
+        <div class="mt-3">
+          <button type="submit" class="btn btn-primary btn-icon-text me-2">
+            <i class="ti-file btn-icon-prepend"></i>
+            <span>Submit</span>
+          </button>
+          <button type="reset" class="btn btn-warning btn-icon-text">
+            <i class="ti-reload btn-icon-prepend"></i>
+            <span>Reset</span>
+          </button>
+        </div>
+
+      </form>
+    </div>
+  </div>
+
+  <div class="card rounded-0 border-0 mt-3" id="weight">
+    <div class="card-body">
+      <h4 class="card-title">ADD WEIGHTAGE</h4>
+
+      <form class="forms-sample" action="{% url 'weight_save' %}" method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+
+        <div class="form-group">
+          <label>Add Weight</label>
+          <input type="text" class="form-control" placeholder="Weight" name="weight">
+        </div>
+
+        <div class="mt-3">
+          <button type="submit" class="btn btn-primary btn-icon-text me-2">
+            <i class="ti-file btn-icon-prepend"></i>
+            <span>Submit</span>
+          </button>
+          <button type="reset" class="btn btn-warning btn-icon-text">
+            <i class="ti-reload btn-icon-prepend"></i>
+            <span>Reset</span>
+          </button>
+        </div>
+
+      </form>
+    </div>
+  </div>
+
+  <div class="card rounded-0 border-0 mt-3" id="class">
+    <div class="card-body">
+      <h4 class="card-title">ADD CLASS</h4>
+      
+      <form class="forms-sample" action="{% url 'class_save' %}" method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+
+        <div class="form-group">
+          <label>Add Class</label>
+          <input type="text" class="form-control" placeholder="Class" name="class">
+        </div>
+
+        <div class="mt-3">
+          <button type="submit" class="btn btn-primary btn-icon-text me-2">
+            <i class="ti-file btn-icon-prepend"></i>
+            <span>Submit</span>
+          </button>
+          <button type="reset" class="btn btn-warning btn-icon-text">
+            <i class="ti-reload btn-icon-prepend"></i>
+            <span>Reset</span>
+          </button>
+        </div>
+
+      </form>
+    </div>
+  </div>
+
+  <!-- Alert Javascript -->
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+  <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
+  {% if messages %}
+  {% for i in messages %}
+  {% if i.tags == 'success' %}
+  <script>
+    swal('{{i}}', '', 'success')
+  </script>
+  {% elif i.tags == 'error' %}
+  <script>
+    swal('{{i}}', '', 'error')
+  </script>
+  {% elif i.tags == 'warning' %}
+  <script>
+    swal('{{i}}', '', 'warning')
+  </script>
+  {% else %}
+  <script>
+    swal('{{i}}', '', 'info')
+  </script>
+  {% endif %}
+  {% endfor %}
+  {% endif %}
+
+  <script>
+    $(document).ready(function () {
+
+      $("#status").show()
+      $("#weight").hide()
+      $("#class").hide()
+
+      $("#status_btn").click(function () {
+        $("#status").show()
+        $("#weight").hide()
+        $("#class").hide()
+      })
+
+      $("#weight_btn").click(function () {
+        $("#status").hide()
+        $("#weight").show()
+        $("#class").hide()
+      })
+
+      $("#class_btn").click(function () {
+        $("#status").hide()
+        $("#weight").hide()
+        $("#class").show()
+      })
+
+
+    })
+  </script>
+
+</body>
+
+</html>
+
+{% endblock %}

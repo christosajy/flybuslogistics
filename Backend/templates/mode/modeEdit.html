@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+
+{% extends 'backindex.html' %}
+{% block content %}
+
+
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+
+  <div class="card rounded-0 border-0">
+    <div class="card-body">
+      <h4 class="card-title">EDIT MODES</h4>
+
+      <form class="forms-sample" action="{% url 'modeUpdate' ModeId=mode.id %}" method="post"
+        enctype="multipart/form-data">
+        {% csrf_token %}
+
+        <div class="form-group">
+          <label>Update Mode Name</label>
+          <input type="text" class="form-control" placeholder="Name" name="uname" value="{{mode.ModeName}}" required>
+        </div>
+
+
+        <div class="form-group">
+          <label>Update Mode Icons</label>
+          <img src="{{mode.ModeImage.url}}" height="80px" width="120px">
+          <input type="file" class="form-control" name="micons">
+        </div>
+
+        <div class="form-group">
+          <label>Main Description</label>
+          <textarea name="udesc" class="form-control text-capitalize" style="height: 15rem;"
+            required>{{mode.ModeDesc}}</textarea>
+        </div>
+
+        <div class="form-group">
+          <label>Sub Description 1</label>
+          <textarea name="udesc1" class="form-control text-capitalize" style="height: 15rem;"
+            required>{{mode.ModeDesc_P1}}</textarea>
+        </div>
+
+        <div class="form-group">
+          <label>Sub Description 2</label>
+          <textarea name="udesc2" class="form-control text-capitalize" style="height: 15rem;"
+            required>{{mode.ModeDesc_P2}}</textarea>
+        </div>
+
+        <div class="form-group">
+          <label>Sub Description 3</label>
+          <textarea name="udesc3" class="form-control text-capitalize" style="height: 15rem;"
+            required>{{mode.ModeDesc_P3}}</textarea>
+        </div>
+
+        <div class="form-group">
+          <label>Sub Description 4</label>
+          <textarea name="udesc4" class="form-control text-capitalize" style="height: 15rem;"
+            required>{{mode.ModeDesc_P4}}</textarea>
+        </div>
+
+        <div class="form-group">
+          <label>Sub Description 5</label>
+          <textarea name="udesc5" class="form-control text-capitalize" style="height: 15rem;"
+            required>{{mode.ModeDesc_P5}}</textarea>
+        </div>
+
+        <button type="submit" class="btn btn-primary btn-icon-text me-2">
+          <i class="ti-file btn-icon-prepend"></i>
+          <span>Submit</span>
+        </button>
+
+        <button type="reset" class="btn btn-warning btn-icon-text">
+          <i class="ti-reload btn-icon-prepend"></i>
+          <span>Reset</span>
+        </button>
+
+      </form>
+    </div>
+  </div>
+
+  <div class="card rounded-0 border-0 mt-3">
+    <div class="card-body">
+      <ul class="nav justify-content-center">
+        <li class="nav-item mr-3">
+          <a class="nav-link btn btn-light btn-icon-text" href="{% url 'modeDisplay' %}">
+            <i class="fa-solid fa-left-long text-primary"></i>
+            <span></span>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link btn btn-light btn-icon-text" href="{% url 'backindex' %}">
+            <i class="fa-solid fa-house text-primary"></i>
+            <span></span>
+          </a>
+        </li>
+        <li class="nav-item ml-3 hidden">
+          <a class="nav-link btn btn-light btn-icon-text" href="#">
+            <i class="fa-solid fa-right-long text-primary"></i>
+            <span></span>
+          </a>
+        </li>
+      </ul>
+    </div>
+  </div>
+
+
+
+</body>
+
+</html>
+
+{% endblock %}

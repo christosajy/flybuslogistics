@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+{% extends 'backindex.html' %}
+{% block content %}
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <div class="card rounded-0 border-0">
+    <div class="card-body">
+      <h4 class="card-title">DISPLAY MODES</h4>
+      <div class="table-responsive pt-3">
+        <table class="table table-bordered text-uppercase">
+          <thead>
+            <tr>
+              <th>Mode Name</th>
+              <th>Main Description</th>
+              <th>Sub Description 1</th>
+              <th>Sub Description 2</th>
+              <th>Sub Description 3</th>
+              <th>Sub Description 4</th>
+              <th>Sub Description 5</th>
+              <th>Icons</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for i in mode %}
+            <tr>
+              <td>{{i.ModeName}}</td>
+              <td>{{i.ModeDesc}}</td>
+              <td>{{i.ModeDesc_P1}}</td>
+              <td>{{i.ModeDesc_P2}}</td>
+              <td>{{i.ModeDesc_P3}}</td>
+              <td>{{i.ModeDesc_P4}}</td>
+              <td>{{i.ModeDesc_P5}}</td>
+              <td>
+                <img src="{{i.ModeImage.url}}" width="80px" height="50px" style="border-radius: 0px;">
+              </td>
+              <td>
+                <form action="{% url 'modeEdit' ModeId=i.id %}">
+                  <button type="submit" class="btn btn-success" onclick="EditFn()">
+                    <i class="fa-regular fa-pen-to-square"></i>
+                    <span> Edit </span>
+                  </button>
+                </form>
+              </td>
+              <td>
+                <form action="{% url 'modeDelete' ModeId=i.id %}">
+                  <button type="submit" class="btn btn-danger">
+                    <i class="fa-regular fa-trash-can"></i>
+                    <span> Delete </span>
+                  </button>
+                </form>
+              </td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <!-- Alert Javascript -->
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+  <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
+  {% if messages %}
+  {% for i in messages %}
+  {% if i.tags == 'success' %}
+  <script>
+    swal('{{i}}', '', 'success')
+  </script>
+  {% elif i.tags == 'error' %}
+  <script>
+    swal('{{i}}', '', 'error')
+  </script>
+  {% elif i.tags == 'warning' %}
+  <script>
+    swal('{{i}}', '', 'warning')
+  </script>
+  {% else %}
+  <script>
+    swal('{{i}}', '', 'info')
+  </script>
+  {% endif %}
+  {% endfor %}
+  {% endif %}
+
+  <script>
+    function EditFn() {
+      alert("Edit Mode ?")
+    }
+  </script>
+
+</body>
+
+</html>
+{% endblock %}

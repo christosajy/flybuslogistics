@@ -1,0 +1,84 @@
+body{
+    background: linear-gradient(rgba(0, 0, 0, 0.9), rgba(0, 0, 0, 0.9), rgba(0, 0, 0, 0.9)), 
+        url(../img/sld.jpg);
+    background-repeat: repeat;
+    width: 100%;
+    height: 100%;
+    /* -o-object-fit: cover; */
+    object-fit: cover;
+}
+
+.navbar-nav a span{
+    color: #fff;
+}
+
+.navbar-nav a span:hover{
+    color: rgb(255, 0, 0);
+}
+
+#sidebar {
+    min-width: 250px;
+    max-width: 250px;
+    /* background: #F5F5F5; */
+    color: #000;
+    -webkit-transition: all 0.3s;
+    -o-transition: all 0.3s;
+    transition: all 0.3s;
+    position: relative;
+}
+
+#sidebar ul.components {
+    padding: 0;
+    margin-top: 23px;
+}
+
+#sidebar ul li {
+    font-size: 16px;
+}
+#sidebar ul li a {
+    text-decoration: none;
+    padding: 5px 10px;
+    margin-left: 10px;
+    display: block;
+    color: #fff;
+    /* color: #FF4800; */
+    /* border-top: 1px solid rgba(255, 255, 255, 0.1); */
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+#sidebar ul li a:hover{
+    color: rgb(255, 0, 0);
+}
+
+.subspan{
+    font-size: 1.1rem;
+    color: rgb(255, 255, 0);
+}
+
+#selectbox{
+    margin-left: -20px;
+    margin-right: -20px;
+}
+
+p{
+    text-align: left;
+}    
+
+.img{
+    width: 100%;
+    height: 150px;
+    margin-bottom: 30px;
+    /* margin-top: -30px; */
+    background: url(../img/bgf.jpg); 
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.profile{
+    color: #fff;
+}
+
+#content{
+    width: 100%;
+}

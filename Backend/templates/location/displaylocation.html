@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+{% extends 'backindex.html' %}
+{% block content %}
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <div class="card border-0 rounded-0">
+    <div class="card-body">
+      <h4 class="card-title">DISPLAY LOCATIONS</h4>
+      <div class="table-responsive pt-3">
+        <table class="table table-bordered text-uppercase">
+          <thead>
+            <tr>
+              <th>Hub</th>
+              <th>Address</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for i in location %}
+            <tr>
+              <td>{{i.Hub}}</td>
+              <td>{{i.Location}}</td>
+              <td>
+                <form action="{% url 'editlocation' locId=i.id %}" onclick="EditFn()">
+                  <button type="submit" class="btn btn-success">Edit</button>
+                </form>
+              </td>
+              <td>
+                <form action="{% url 'locationdelete' locId=i.id %}">
+                  <button type="submit" class="btn btn-danger">Delete</button>
+                </form>
+              </td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <!-- Alert Javascript -->
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+  <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
+  {% if messages %}
+  {% for i in messages %}
+  {% if i.tags == 'success' %}
+  <script>
+    swal('{{i}}', '', 'success')
+  </script>
+  {% elif i.tags == 'error' %}
+  <script>
+    swal('{{i}}', '', 'error')
+  </script>
+  {% elif i.tags == 'warning' %}
+  <script>
+    swal('{{i}}', '', 'warning')
+  </script>
+  {% else %}
+  <script>
+    swal('{{i}}', '', 'info')
+  </script>
+  {% endif %}
+  {% endfor %}
+  {% endif %}
+
+  <script>
+    function EditFn() {
+      alert("Edit linkr! locations ?")
+    }
+  </script>
+
+</body>
+
+</html>
+{% endblock %}

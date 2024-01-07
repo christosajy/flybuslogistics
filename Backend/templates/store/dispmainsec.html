@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+{% extends 'backindex.html' %}
+{% block content %}
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <div class="card rounded-0 border-0">
+    <div class="card-body">
+      <h4 class="card-title">DISPLAY SLIDER FOR FRONTEND</h4>
+      <div class="table-responsive pt-3">
+        <table class="table table-bordered text-uppercase">
+          <thead>
+            <tr>
+              <th> Top Heading [h4] [required] </th>
+              <th> Main Heading [h1] [required] </th>
+              <th> Sub Heading [h6] </th>
+              <th> Content P1 [required] </th>
+              <th> Content P2 </th>
+              <th> Content P3 </th>
+              <th> Content P4 </th>
+              <th> Content P5 </th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for i in slider %}
+            <tr>
+              <td class="text-capitalize">{{i.Top_Heading}}</td>
+              <td class="text-capitalize">{{i.Main_Heading}}</td>
+              <td class="text-capitalize">{{i.Sub_Heading}}</td>
+              <td class="text-capitalize">{{i.Content_P1}}</td>
+              <td class="text-capitalize">{{i.Content_P2}}</td>
+              <td class="text-capitalize">{{i.Content_P3}}</td>
+              <td class="text-capitalize">{{i.Content_P4}}</td>
+              <td class="text-capitalize">{{i.Content_P5}}</td>
+
+              <td>
+                <form action="{% url 'editslider' SlId=i.id %}">
+                  <button type="submit" class="btn btn-success" onclick="EditFn()">
+                    <i class="fa-regular fa-pen-to-square"></i>
+                    <span> Edit </span>
+                  </button>
+                </form>
+              </td>
+
+              <td>
+                <form action="{% url 'deletemainslider' SlId=i.id %}">
+                  <button type="submit" class="btn btn-danger">
+                    <i class="fa-regular fa-trash-can"></i>
+                    <span> Delete </span>
+                  </button>
+                </form>
+              </td>
+              
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <!-- Alert Javascript -->
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+  <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
+  {% if messages %}
+  {% for i in messages %}
+  {% if i.tags == 'success' %}
+  <script>
+    swal('{{i}}', '', 'success')
+  </script>
+  {% elif i.tags == 'error' %}
+  <script>
+    swal('{{i}}', '', 'error')
+  </script>
+  {% elif i.tags == 'warning' %}
+  <script>
+    swal('{{i}}', '', 'warning')
+  </script>
+  {% else %}
+  <script>
+    swal('{{i}}', '', 'info')
+  </script>
+  {% endif %}
+  {% endfor %}
+  {% endif %}
+
+  <script>
+    function EditFn() {
+      alert("Edit Mode ?")
+    }
+  </script>
+
+</body>
+
+</html>
+{% endblock %}

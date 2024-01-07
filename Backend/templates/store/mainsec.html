@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+
+{% extends 'backindex.html' %}
+{% block content %}
+
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+
+    <div class="card rounded-0 border-0">
+        <div class="card-body">
+            <h4 class="card-title">MAIN SLIDER</h4>
+
+            <form class="forms-sample" action="{% url 'mainslidersave' %}" method="post">
+                {% csrf_token %}
+
+                <div class="form-group">
+                    <label> Top Heading [h4] [required] </label>
+                    <input type="text" class="form-control text-capitalize" placeholder="Top Heading" name="tophead" required>
+                </div>
+
+                <div class="form-group">
+                    <label> Main Heading [h1] [required] </label>
+                    <input type="text" class="form-control text-capitalize" name="mainhead" placeholder="Main Heading" required>
+                </div>
+
+                <div class="form-group">
+                    <label> Sub Heading [h6] </label>
+                    <input type="text" class="form-control text-capitalize" name="subhead" placeholder="Sub Heading">
+                </div>
+
+                <div class="form-group">
+                    <label>Content P1 [required] </label>
+                    <textarea name="ctp1" class="form-control text-capitalize" style="height: 8rem;" required></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label>Content P2</label>
+                    <textarea name="ctp2" class="form-control text-capitalize" style="height: 8rem;"></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label>Content P3</label>
+                    <textarea name="ctp3" class="form-control text-capitalize" style="height: 8rem;"></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label>Content P4</label>
+                    <textarea name="ctp4" class="form-control text-capitalize" style="height: 8rem;"></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label>Content P5</label>
+                    <textarea name="ctp5" class="form-control text-capitalize" style="height: 8rem;"></textarea>
+                </div>
+
+                <button type="submit" class="btn btn-primary btn-icon-text me-2">
+                    <i class="ti-file btn-icon-prepend"></i>
+                    <span>Submit</span>
+                </button>
+
+                <button type="reset" class="btn btn-warning btn-icon-text">
+                    <i class="ti-reload btn-icon-prepend"></i>
+                    <span>Reset</span>
+                </button>
+
+            </form>
+        </div>
+    </div>
+
+    <!-- Alert Javascript -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
+    {% if messages %}
+    {% for i in messages %}
+    {% if i.tags == 'success' %}
+    <script>
+        swal('{{i}}', '', 'success')
+    </script>
+    {% elif i.tags == 'error' %}
+    <script>
+        swal('{{i}}', '', 'error')
+    </script>
+    {% elif i.tags == 'warning' %}
+    <script>
+        swal('{{i}}', '', 'warning')
+    </script>
+    {% else %}
+    <script>
+        swal('{{i}}', '', 'info')
+    </script>
+    {% endif %}
+    {% endfor %}
+    {% endif %}
+
+
+</body>
+
+</html>
+
+{% endblock %}

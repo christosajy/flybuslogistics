@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+
+{% extends 'backindex.html' %}
+{% block content %}
+
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+
+    <div class="card mt-3 rounded-0 border-0" id="shipping_section">
+        <div class="card-body">
+            <h4 class="card-title">QUOTE MAIL PAGE </h4>
+
+            <form class="forms-sample" action="{% url 'quote_send_mail' %}" method="post">
+                {% csrf_token %}
+
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label>User Mail</label> <!-- TO MAIL -->
+                            <input class="form-control text-lowercase" name="mailto" value="{{quote.Email}}"
+                                type="email">
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label>Subject</label> <!-- SUBJECT -->
+                            <!-- <input type="text" class="form-control" value="Quote Status" name="subject" required> -->
+                            <select name="subject" class="form-control" required>
+                                <option> QUOTE REQUEST ACCEPTED </option>
+                                <option> QUOTE REQUEST REJECTED </option>
+                            </select>
+                            <span class="select-arrow"></span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="form-group">
+                        <label>Content</label> <!-- CONTENT -->
+                        <!-- <input type="text" name="content" class="form-control" required> -->
+                        <select name="content" class="form-control" required>
+                            <option> DEAR USER, YOUR QUOTE REQUEST IS ACCEPTED. </option>
+                            <option> DEAR USER, YOUR QUOTE REQUEST IS REJECTED. </option>
+                        </select>
+                    </div>
+                </div>
+
+                <button type="submit" class="btn btn-primary btn-icon-text me-2">
+                    <i class="ti-file btn-icon-prepend"></i>
+                    <span> Send </span>
+                </button>
+
+                <button type="reset" class="btn btn-warning btn-icon-text">
+                    <i class="ti-reload btn-icon-prepend"></i>
+                    <span> Cancel </span>
+                </button>
+
+            </form>
+        </div>
+    </div>
+
+    <!-- Hidden Bottom Next Bar -->
+    <div class="card rounded-0 border-0 mt-3 hidden">
+        <div class="card-body">
+            <ul class="nav justify-content-center">
+                <li class="nav-item mr-3">
+                    <a class="nav-link btn btn-primary btn-icon-text" href="#">
+                        <i class="fa-solid fa-left-long"></i>
+                        <span>Left</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link btn btn-primary btn-icon-text" href="#">
+                        <span>Home</span>
+                    </a>
+                </li>
+                <li class="nav-item ml-3">
+                    <a class="nav-link btn btn-primary btn-icon-text" href="#">
+                        <i class="fa-solid fa-right-long"></i>
+                        <span>Right</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- Alert Javascript -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
+    {% if messages %}
+    {% for i in messages %}
+    {% if i.tags == 'success' %}
+    <script>
+        swal('{{i}}', '', 'success')
+    </script>
+    {% elif i.tags == 'error' %}
+    <script>
+        swal('{{i}}', '', 'error')
+    </script>
+    {% elif i.tags == 'warning' %}
+    <script>
+        swal('{{i}}', '', 'warning')
+    </script>
+    {% else %}
+    <script>
+        swal('{{i}}', '', 'info')
+    </script>
+    {% endif %}
+    {% endfor %}
+    {% endif %}
+
+</body>
+
+</html>
+
+{% endblock %}

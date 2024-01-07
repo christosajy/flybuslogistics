@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+{% extends 'backindex.html' %}
+{% block content %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+
+    <div class="card rounded-0 border-0">
+        <div class="card-body">
+          <h4 class="card-title">DISPLAY-DELETE ADDRESS OF FOOTER</h4>
+          <div class="table-responsive pt-3">
+            <table class="table table-bordered text-uppercase">
+              <thead>
+                <tr>
+                    <th>Email ID</th>
+                    <th>Website URL</th>
+                    <th>Copyright Address</th>
+                    <th>Address</th>
+                    <th>Contact Number</th>
+                </tr>
+              </thead>
+              <tbody>
+                {% for i in address %}
+                <tr>
+                    <td class="text-lowercase">{{i.Email}}</td>
+                    <td class="text-lowercase">{{i.Website}}</td>
+                    <td  class="text-capitalize">{{i.Copy_right}}</td>
+                    <td class="text-uppercase">{{i.Address}}</td>
+                    <td class="text-lowercase">{{i.ContactNum}}</td>
+                    <td>
+                      <form action="{% url 'editaddress' addressId=i.id %}" onclick="EditFn()">
+                        <button type="submit" class="btn btn-success">Edit</button>
+                      </form>
+                    </td>
+                    <td>
+                      <form action="{% url 'deleteaddress' delId=i.id %}">
+                        <button type="submit" class="btn btn-danger">Delete</button>
+                      </form>
+                    </td>
+                </tr>
+                {% endfor %}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+      <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+      <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    
+      {% if messages %}
+        {% for i in messages %}
+            {% if i.tags == 'success' %}
+            <script>
+                swal('{{i}}', '', 'success')
+            </script>
+            {% elif i.tags == 'warning' %}
+            <script>
+                swal('{{i}}', '', 'warning')
+            </script>
+            {% elif i.tags == 'error' %}
+            <script>
+                swal('{{i}}', '', 'error')
+            </script>
+            {% else %}
+            <script>
+                swal('{{i}}', '', 'info')
+            </script>
+            {% endif %}
+        {% endfor %}
+    {% endif %}
+
+    <script>
+      function EditFn(){
+        alert("Edit address ?")
+      }
+    </script>
+
+</body>
+</html>
+{% endblock %}

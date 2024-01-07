@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+{% extends 'backindex.html' %}
+{% block content %}
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+</head>
+
+<body>
+
+  <div class="card border-0 rounded-0">
+    <div class="card-body">
+      <h4 class="card-title">ADD TYPE OF FREIGHT</h4>
+      <p class="card-description">
+        <b>Note:</b>Freight has to be of different types. A Freight can be properly shipped
+        only when we came to know about what type your freight. So kindly mention different types for the
+        conveinience of User.
+      </p>
+
+      <form class="forms-sample" action="{% url 'typesave' %}" method="post">
+        {% csrf_token %}
+        <div class="form-group">
+          <label>Type Name</label>
+          <input type="text" class="form-control" placeholder="Type Name" name="typename" required="required">
+        </div>
+
+        <div class="form-group">
+          <label>Main Description</label>
+          <textarea name="typedesc" class="form-control" style="height: 8rem;"
+            required="required">[Main Description]</textarea>
+        </div>
+
+        <div class="form-group">
+          <label>Alternate Description 1</label>
+          <textarea name="typedesc1" class="form-control" style="height: 8rem;"
+            required="required">[Alternate Description 1]</textarea>
+        </div>
+
+        <div class="form-group">
+          <label>Alternate Description 2</label>
+          <textarea name="typedesc2" class="form-control" style="height: 8rem;"
+            required="required">[Alternate Description 2]</textarea>
+        </div>
+
+        <div class="form-group">
+          <label>Alternate Description 3</label>
+          <textarea name="typedesc3" class="form-control" style="height: 8rem;"
+            required="required">[Alternate Description 3]</textarea>
+        </div>
+
+        <div class="form-group">
+          <label>Alternate Description 4</label>
+          <textarea name="typedesc4" class="form-control" style="height: 8rem;"
+            required="required">[Alternate Description 4]</textarea>
+        </div>
+
+        <div class="form-group">
+          <label>Alternate Description 5 [Optional]</label>
+          <textarea name="typedesc5" class="form-control" style="height: 8rem;">[Alternate Description 2]</textarea>
+        </div>
+
+        <button type="submit" class="btn btn-primary btn-icon-text me-2">
+          <i class="ti-file btn-icon-prepend"></i>
+          <span>Submit</span>
+        </button>
+
+        <button type="reset" class="btn btn-warning btn-icon-text">
+          <i class="ti-reload btn-icon-prepend"></i>
+          <span>Reset</span>
+        </button>
+
+      </form>
+    </div>
+  </div>
+
+  <!-- Alert Javascript -->
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+  <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
+  {% if messages %}
+  {% for i in messages %}
+  {% if i.tags == 'success' %}
+  <script>
+    swal('{{i}}', '', 'success')
+  </script>
+  {% elif i.tags == 'error' %}
+  <script>
+    swal('{{i}}', '', 'error')
+  </script>
+  {% elif i.tags == 'warning' %}
+  <script>
+    swal('{{i}}', '', 'warning')
+  </script>
+  {% else %}
+  <script>
+    swal('{{i}}', '', 'info')
+  </script>
+  {% endif %}
+  {% endfor %}
+  {% endif %}
+
+
+</body>
+
+</html>
+{% endblock %}

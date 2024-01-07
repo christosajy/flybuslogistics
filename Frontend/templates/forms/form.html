@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+
+{% load static %}
+
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>[Frontend] USER_LOGIN</title>
+
+    <!-- Google Web Fonts -->
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap"
+        rel="stylesheet">
+
+    <!-- Font Awesome -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
+
+    <link rel="stylesheet" href="{% static 'css/formstyle.css' %}">
+</head>
+
+<body class="body">
+
+    <div class="cont">
+        <div class="form sign-in">
+            <a href="#" class="navbar-brand ml-lg-3">
+                <h1 class="m-0 display-5 text-primary">
+                    <i class="fas fa-bus-alt text-danger"></i> fly<span class="text-danger">!</span>bus
+                </h1>
+            </a>
+            <form action="{% url 'userlogin' %}" method="post">
+
+                {% csrf_token %}
+                
+                <div style="margin-top: 50px;">
+                    <label>
+                        <span>Email</span>
+                        <input type="email" name="email" class="text-lowercase" placeholder="username@domain.com"
+                            required />
+                    </label>
+                    <label>
+                        <span>Password</span>
+                        <input type="password" name="pass" class="text-lowercase" placeholder="password"
+                            autocomplete="off" required />
+                    </label>
+                    <!-- <p class="forgot-pass">Forgot password?</p> -->
+                    <button type="submit" class="submit">
+                        <span> Login </span>
+                    </button>
+                </div>
+            </form>
+
+        </div>
+
+        <div class="sub-cont">
+            <div class="img">
+                <div class="img__text m--up">
+                    <h3>Don't have an account? Please Sign up!</h3>
+                </div>
+                <div class="img__text m--in">
+                    <h3>If you already has an account, just sign in!</h3>
+                </div>
+                <div class="img__btn">
+                    <span class="m--up">Sign Up</span>
+                    <span class="m--in">Login</span>
+                </div>
+            </div>
+
+            <form name="userreg" action="{% url 'saveform' %}" method="post" onsubmit="return RegVald()"
+                enctype="multipart/form-data">
+
+                {% csrf_token %}
+
+                <div class="form sign-up">
+                    <h2>Create your Account</h2>
+
+                    <label>
+                        <span>Full Name</span>
+                        <input type="text" name="fullname" placeholder="Full Name" autocomplete="off" required />
+                    </label>
+
+                    <label>
+                        <span>Mobile or Phone</span>
+                        <input type="text" name="phone" class="text-capitalize" placeholder="Mobile or Phone"
+                            autocomplete="off" required />
+                    </label>
+
+                    <label>
+                        <span>Email</span>
+                        <input type="email" name="email" class="text-lowercase" placeholder="Email ID"
+                            autocomplete="off" required />
+                    </label>
+
+                    <label>
+                        <span>Password</span>
+                        <input type="password" name="pass" class="text-lowercase" placeholder="Password"
+                            autocomplete="off" required />
+                    </label>
+
+                    <label>
+                        <span>Profile Picture</span>
+                        <input type="file" name="profile" style="border-bottom: transparent;" />
+                    </label>
+
+                    <button type="submit" class="submit" style="margin-top: 5px;">
+                        <span> Sign Up </span>
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
+    <script>
+
+        function RegVald() {
+
+            var userEmail = document.userreg.email.value;
+            var userPassword = document.userreg.pass.value;
+            var userPhone = document.userreg.phone.value;
+
+            if (userEmail = "") {
+                alert("Enter a valid Email")
+                return false
+            }
+
+            else if (userPassword.length < 4) {
+                alert("Password must contain atleast 4 charecters")
+                return false
+            }
+
+            else if (userPhone.length != 10) {
+                alert("Please enter 10 digit phone number")
+                return false
+            }
+
+            else if (userPhone.charAt(0) === '0' || userPhone.charAt(0) === '1') {
+                alert("Please enter a valid phone number")
+                return false
+            }
+
+            else if (!/^\d+$/.test(userPhone)) {
+                alert("Enter digits only")
+                return false
+            }
+        }
+
+    </script>
+
+    {% if messages %}
+    {% for i in messages %}
+    {% if i.tags == 'success' %}
+    <script>
+        swal('{{i}}', '', 'success')
+    </script>
+    {% elif i.tags == 'error' %}
+    <script>
+        swal('{{i}}', '', 'error')
+    </script>
+    {% elif i.tags == 'warning' %}
+    <script>
+        swal('{{i}}', '', 'warning')
+    </script>
+    {% else %}
+    <script>
+        swal('{{i}}', '', 'info')
+    </script>
+    {% endif %}
+    {% endfor %}
+    {% endif %}
+
+    <script>
+        document.querySelector('.img__btn').addEventListener('click', function () {
+            document.querySelector('.cont').classList.toggle('s--signup');
+        });
+    </script>
+
+</body>
+
+</html>

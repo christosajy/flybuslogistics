@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+
+{% extends 'backindex.html' %}
+{% block content %}
+
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+
+    <div class="card mt-3 rounded-0 border-0" id="warehouse_section">
+        <div class="card-body">
+            <h4 class="card-title">PENDING WAREHOUSE REQUESTS </h4>
+
+            <form class="forms-sample" action="{% url 'update_pending_warehouse' wareId=ware.id %}" method="post">
+                {% csrf_token %}
+
+                <div class="form-group">
+                    <label>User Mail</label>
+                    <input type="email" class="form-control text-lowercase" name="email" value="{{ware.Email}}"
+                        readonly>
+                </div>
+
+                <div class="form-group">
+                    <label>Warehouse ID</label>
+                    <p> Example: 44DD44CC33BB22AA [8-16 Alphanumeric Characters in 44-Series ( NB: Full Uppercase)] </p>
+                    <input type="text" name="genid" class="form-control text-uppercase" value="{{ware.Warehouse_ID}}"
+                        required>
+                </div>
+
+                <div class="form-group">
+                    <label>Start Date</label>
+                    <input type="text" class="form-control" name="start" value="{{ware.StartDate}}" id="startdate"
+                        onfocus="(this.type='date')" onblur="(this.type='text')" placeholder="Date" required>
+                </div>
+
+                <div class="form-group">
+                    <label>End Date</label>
+                    <input type="text" class="form-control" name="end" value="{{ware.EndDate}}" id="enddate"
+                        onfocus="(this.type='date')" onblur="(this.type='text')" placeholder="Date" required>
+                </div>
+
+                <div class="form-group">
+                    <label>Type</label>
+                    <select name="type" class="form-control">
+                        <option>{{ware.Type}}</option>
+                        {% for i in type %}
+                        <option>{{i.TypeName}}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label>Hub</label>
+                    <select name="hub" class="form-control">
+                        <option>{{ware.Hub}}</option>
+                        {% for i in location %}
+                        <option>{{i.Hub}}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label>Order Status</label>
+                    <select name="status" class="form-control" required>
+                        <option>{{ware.Order_Status}}</option>
+                        {% for i in order %}
+                        <option>{{i.Order_Status}}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+
+                <button type="submit" class="btn btn-primary btn-icon-text me-2">
+                    <i class="ti-file btn-icon-prepend"></i>
+                    <span> Submit </span>
+                </button>
+                <button type="reset" class="btn btn-warning btn-icon-text">
+                    <i class="ti-reload btn-icon-prepend"></i>
+                    <span>Reset</span>
+                </button>
+
+            </form>
+        </div>
+    </div>
+
+    <!-- Hidden Bottom Next Bar -->
+    <div class="card rounded-0 border-0 mt-3 hidden">
+        <div class="card-body">
+            <ul class="nav justify-content-center">
+                <li class="nav-item mr-3">
+                    <a class="nav-link btn btn-primary btn-icon-text" href="#">
+                        <i class="fa-solid fa-left-long"></i>
+                        <span>Left</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link btn btn-primary btn-icon-text" href="#">
+                        <span>Home</span>
+                    </a>
+                </li>
+                <li class="nav-item ml-3">
+                    <a class="nav-link btn btn-primary btn-icon-text" href="#">
+                        <i class="fa-solid fa-right-long"></i>
+                        <span>Right</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- Alert Javascript -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
+    <script>
+        var date = new Date();
+        var tdate = date.getDate();
+        if (tdate < 10) {
+            tdate = "0" + tdate;
+        }
+        var month = date.getMonth() + 1;
+        if (month < 10) {
+            month = "0" + month;
+        }
+        var year = date.getUTCFullYear();
+        var minDate = year + "-" + month + "-" + tdate;
+        document.getElementById("startdate").setAttribute("min", minDate);
+        document.getElementById("enddate").setAttribute("min", minDate);
+        console.log(date)
+    </script>
+
+    {% if messages %}
+    {% for i in messages %}
+    {% if i.tags == 'success' %}
+    <script>
+        swal('{{i}}', '', 'success')
+    </script>
+    {% elif i.tags == 'error' %}
+    <script>
+        swal('{{i}}', '', 'error')
+    </script>
+    {% elif i.tags == 'warning' %}
+    <script>
+        swal('{{i}}', '', 'warning')
+    </script>
+    {% else %}
+    <script>
+        swal('{{i}}', '', 'info')
+    </script>
+    {% endif %}
+    {% endfor %}
+    {% endif %}
+
+    <script>
+
+        $("#promo").hide()
+
+        function CheckFun() {
+            var checkbox = document.getElementById("check")
+            var promodiv = document.getElementById("promo")
+
+            if (checkbox.checked == true) {
+                promo.style.display = "block";
+            }
+            else {
+                promo.style.display = "none";
+            }
+        }
+
+    </script>
+
+</body>
+
+</html>
+
+{% endblock %}
